@@ -66,6 +66,7 @@ export function SnippetDetail(p: { snippet: Snippet }) {
 
   const codeHightLighter = (
     <SyntaxHighlighter
+      customStyle={{ height: "100%", paddingBottom: "15rem" }}
       showLineNumbers
       language={p.snippet.language}
       style={theme}
@@ -121,8 +122,7 @@ export function SnippetDetail(p: { snippet: Snippet }) {
       <div className="p-8 mb-44 relative border-2 border-main-500 rounded-xl">
         <div>
           {title}
-
-          <div className="flex flex-col">
+          <div className="flex flex-col h-[38rem]">
             {actionButtons}
             {codeHightLighter}
           </div>

@@ -10,11 +10,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { FieldError } from "@/components/FieldError";
-
+const MAX_LENGTH_CONTENT = 5000;
 const formSchema = z.object({
   title: z.string().min(1),
-  name: z.string().min(1),
-  content: z.string().min(1),
+  name: z.string().min(5),
+  content: z.string().min(1).max(MAX_LENGTH_CONTENT),
   technology: z.nativeEnum(Technology),
 });
 export type FormValuesUpdateSnippet = typeof formSchema._type;
@@ -92,7 +92,7 @@ export function FormUpdateSnippet(p: { snippet: Snippet }) {
   const inputName = (
     <div className="space-y-3">
       <label htmlFor="name" className="flex items-center space-x-4">
-        <div>name</div>
+        <div>Name</div>
       </label>
       <input {...register("name")} id="name" />
       <FieldError errors={errors} name="name" />

@@ -74,3 +74,39 @@ export const createSnippet = async (
     };
   }
 };
+
+export const readAllTechnologies = async (): Promise<
+  ApiResponse<Technology[]>
+> => {
+  try {
+    const { userId } = auth();
+    if (!userId) {
+      return {
+        data: null,
+        error: true,
+        status: 401,
+        message: "User not signed in",
+      };
+    }
+
+    const technologies = (
+      await db.snippet.groupBy({
+        by: ["technology"],
+        where: { userId },
+      })
+    ).map((tech) => tech.technology);
+
+    return {
+      data: technologies,
+    };
+  } catch (error) {
+    return {
+      data: null,
+      error: true,
+      status: 500,
+      message:
+        "Something went wrong when fetching snippets " +
+        (error as Error).message,
+    };
+  }
+};

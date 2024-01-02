@@ -137,26 +137,21 @@ export function FormCreateSnippet() {
     </div>
   );
   return (
-    <div className="h-screen overflow-y-scroll">
-      <form
-        onSubmit={handleSubmit(submit)}
-        className="space-y-8  w-[50rem]  pb-40"
-      >
-        <div className="space-y-6">
-          <h1>New snippet</h1>
-          {textareaContent}
-          {content && (
-            <>
-              {inputName}
-              {inputTitle}
-              {technoSelect}
-            </>
-          )}
-        </div>
-        <div className="flex justify-end">
-          <button>Save</button>
-        </div>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit(submit)} className="space-y-8  w-[50rem] ">
+      <div className="space-y-6">
+        <h1>New snippet</h1>
+        {textareaContent}
+        {content && (
+          <>
+            {inputName}
+            {inputTitle}
+            {technoSelect}
+          </>
+        )}
+      </div>
+      <div className="flex justify-end">
+        <button>Save</button>
+      </div>
+    </form>
   );
 }

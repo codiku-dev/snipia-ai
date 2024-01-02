@@ -7,5 +7,9 @@ export default async function UpdateSnippetPage(p: { params: { id: string } }) {
   const { data: snippet } = await readSnippet(Number(p.params.id), {
     userId: userId!,
   });
-  return <FormUpdateSnippet snippet={snippet!} />;
+  return (
+    <div className="overflow-y-scroll h-full pb-40">
+      <FormUpdateSnippet snippet={snippet!} />
+    </div>
+  );
 }

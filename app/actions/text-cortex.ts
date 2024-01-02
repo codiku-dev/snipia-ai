@@ -8,8 +8,8 @@ export async function genCodeMetadata(
 ): Promise<
   ApiResponse<{ title: string; technology: Technology; name: string }>
 > {
-  if (code.length > 1000) {
-    throw new Error("Can't exceed 1000 characters");
+  if (code.length > 3000) {
+    throw new Error("Can't exceed 3000 characters");
   }
   const codeWithoutLineBreaks = code
     .replace(/(\r\n|\n|\r)/gm, "")

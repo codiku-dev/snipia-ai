@@ -13,7 +13,7 @@ import { FieldError } from "@/components/FieldError";
 import { ClipboardEvent } from "react";
 import { genCodeMetadata } from "@/actions/text-cortex";
 
-const MAX_LENGTH_CONTENT = 1000;
+const MAX_LENGTH_CONTENT = 3000;
 const formSchema = z.object({
   title: z.string().min(1),
   name: z.string().min(5),
@@ -75,12 +75,6 @@ export function FormCreateSnippet() {
           setValue("name", data.technology + "-" + data.name);
         }
       }
-    } else {
-      toast(
-        "Can't paste more than " +
-          MAX_LENGTH_CONTENT +
-          " characters ( AI ain't cheap )"
-      );
     }
   };
 

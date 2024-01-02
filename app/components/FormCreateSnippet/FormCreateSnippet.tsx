@@ -76,7 +76,6 @@ export function FormCreateSnippet() {
         }
       }
     } else {
-      e.preventDefault();
       toast(
         "Can't paste more than " +
           MAX_LENGTH_CONTENT +

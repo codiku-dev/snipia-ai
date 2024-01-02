@@ -8,10 +8,14 @@ export async function genCodeMetadata(
 ): Promise<
   ApiResponse<{ title: string; technology: Technology; name: string }>
 > {
+  if (code.length > 1000) {
+    throw new Error("Can't exceed 1000 characters");
+  }
   const codeWithoutLineBreaks = code
     .replace(/(\r\n|\n|\r)/gm, "")
     .replace(/ +/g, " ")
     .replace(/"/g, "'");
+
   console.log("codeWithoutLineBreaks", codeWithoutLineBreaks);
   const prompt = `An exemple of short good title can be Sort array by first letter or Simple http server or Modal component.Return also the technology(language or framework or library) of the code and a name in keba case.Your response should have the following format : title/technology/name  Example: Find max value in array/python/find-max-value or Generate random value/java/random-value  The technology should be in lowercase.Here is a list of all valid technologies :  python javascript java csharp php ruby swift kotlin c cpp bash css nextjs nodejs react rust typescript html. Return a response for this piece of code : ${codeWithoutLineBreaks}`;
 

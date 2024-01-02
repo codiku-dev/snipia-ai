@@ -17,7 +17,7 @@ export function Header() {
   return (
     <header className="bg-main-700 px-8 py-8 flex justify-between">
       <Link href="/">
-        <Image src={logoPng} alt="Logo" className="w-48" />
+        <Image src={logoPng} alt="Logo" width={192} height={192} priority />
       </Link>
       <div className="flex items-center space-x-3 text-white">
         <UserButton afterSignOutUrl="/auth/sign-in" />

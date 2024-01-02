@@ -13,7 +13,7 @@ import { FieldError } from "@/components/FieldError";
 import { ClipboardEvent } from "react";
 import { genCodeMetadata } from "@/actions/text-cortex";
 
-const MAX_LENGTH_CONTENT = 1000;
+const MAX_LENGTH_CONTENT = 5000;
 const formSchema = z.object({
   title: z.string().min(1),
   name: z.string().min(5),
@@ -116,7 +116,7 @@ export function FormCreateSnippet() {
   const inputName = (
     <div className="space-y-3">
       <label htmlFor="name" className="flex items-center space-x-4">
-        <div>name</div> <RxMagicWand />
+        <div>Name</div> <RxMagicWand />
       </label>
       <input {...register("name")} id="name" />
       <FieldError errors={errors} name="name" />
@@ -137,21 +137,26 @@ export function FormCreateSnippet() {
     </div>
   );
   return (
-    <form onSubmit={handleSubmit(submit)} className="space-y-8 w-[50rem]  ">
-      <div className="space-y-6">
-        <h1>New snippet</h1>
-        {textareaContent}
-        {content && (
-          <>
-            {inputName}
-            {inputTitle}
-            {technoSelect}
-          </>
-        )}
-      </div>
-      <div className="flex justify-end">
-        <button>Save</button>
-      </div>
-    </form>
+    <div className="h-screen overflow-y-scroll">
+      <form
+        onSubmit={handleSubmit(submit)}
+        className="space-y-8  w-[50rem]  pb-40"
+      >
+        <div className="space-y-6">
+          <h1>New snippet</h1>
+          {textareaContent}
+          {content && (
+            <>
+              {inputName}
+              {inputTitle}
+              {technoSelect}
+            </>
+          )}
+        </div>
+        <div className="flex justify-end">
+          <button>Save</button>
+        </div>
+      </form>
+    </div>
   );
 }

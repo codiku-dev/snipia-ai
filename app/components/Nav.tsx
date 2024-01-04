@@ -27,7 +27,7 @@ const Nav = async () => {
   };
 
   return (
-    technologies && (
+    technologies?.length! > 0 && (
       <div className="text-white bg-main-900 py-8 px-6  min-w-[12rem] text-sm rounded-lg flex h-full  justify-center">
         <ul className="space-y-2">{technologies?.map(renderLinkItem)}</ul>
       </div>

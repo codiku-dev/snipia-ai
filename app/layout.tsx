@@ -7,6 +7,7 @@ import { dark } from "@clerk/themes";
 const montserrat = Montserrat({ subsets: ["latin"] });
 import { Toaster } from "sonner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Providers } from "./lib/providers";
 const queryClient = new QueryClient();
 
 export const metadata: Metadata = {
@@ -20,27 +21,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <QueryClientProvider client={queryClient}>
-      <ClerkProvider
-        appearance={{
-          baseTheme: dark,
-          variables: { colorPrimary: "#d44700" },
-          elements: {
-            header: "child:text-white",
-            footerActionText: "text-white",
-            card: "bg-main-700 shadow-none",
-            formFieldLabel: "text-white",
-            footerActionLink: { color: "#ff8f57" },
-          },
-        }}
-      >
-        <html lang="en">
-          <body className={`${montserrat.className}`}>
-            <Toaster />
-            {children}
-          </body>
-        </html>
-      </ClerkProvider>
-    </QueryClientProvider>
+    <ClerkProvider
+      appearance={{
+        baseTheme: dark,
+        variables: { colorPrimary: "#d44700" },
+        elements: {
+          header: "child:text-white",
+          footerActionText: "text-white",
+          card: "bg-main-700 shadow-none",
+          formFieldLabel: "text-white",
+          footerActionLink: { color: "#ff8f57" },
+        },
+      }}
+    >
+      <html lang="en">
+        <body className={`${montserrat.className}`}>
+          <Toaster />
+          <Providers>{children}</Providers>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

@@ -2,7 +2,7 @@ import { readAllTechnologies } from "@/api/snippets/service";
 import { NavItem } from "./NavItem";
 import { delayReq } from "@/lib/mock";
 import Skeleton from "react-loading-skeleton";
-import { PropsWithChildren, Suspense } from "react";
+import { Suspense } from "react";
 export async function Nav() {
   const { data: technologies } = await delayReq(
     await readAllTechnologies(),

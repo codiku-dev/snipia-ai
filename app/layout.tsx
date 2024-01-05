@@ -1,11 +1,11 @@
 import "./globals.css";
+import "react-loading-skeleton/dist/skeleton.css";
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
 const montserrat = Montserrat({ subsets: ["latin"] });
 import { Toaster } from "sonner";
-
 export const metadata: Metadata = {
   title: "Snipia",
   description: "The one place for all your code snippets",

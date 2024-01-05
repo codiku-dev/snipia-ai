@@ -1,7 +1,8 @@
-import { readAllSnippet } from "@/api/snippets/service";
 import { Header } from "@/components/Header";
-import { Nav } from "@/components/Nav";
-import { auth } from "@clerk/nextjs";
+import { Nav, NavSuspense } from "@/components/Nav";
+import Skeleton from "react-loading-skeleton";
+
+import { Suspense } from "react";
 export default async function SnippetLayout({
   children,
 }: {
@@ -11,7 +12,7 @@ export default async function SnippetLayout({
     <div>
       <Header />
       <div className="flex p-8">
-        <Nav />
+        <NavSuspense />
         <div className="ml-8 w-full h-screen">{children}</div>
       </div>
     </div>

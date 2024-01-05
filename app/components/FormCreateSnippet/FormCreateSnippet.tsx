@@ -13,7 +13,6 @@ import { FieldError } from "@/components/FieldError";
 import { ClipboardEvent } from "react";
 import { genCodeMetadata } from "@/actions/text-cortex";
 
-
 const MAX_LENGTH_CONTENT = 5000;
 const formSchema = z.object({
   title: z.string().min(1),
@@ -70,10 +69,11 @@ export function FormCreateSnippet() {
       const { data } = await genCodeMetadata(pastedText);
 
       if (data) {
+        console.log("the data", data);
         setValue("title", data.title);
         if (SNIPPETS_METADATA[data.technology]) {
-          setValue("technology", data.technology);
           setValue("name", data.technology + "-" + data.name);
+          setValue("technology", data.technology);
         }
       }
     }

@@ -13,6 +13,7 @@ import ky from "ky";
 import { ApiResponse } from "@/types/response";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { deleteSnippet } from "@/api/snippets/[id]/service";
 
 export function SnippetDetail(p: { snippet: Snippet }) {
   const router = useRouter();
@@ -20,14 +21,12 @@ export function SnippetDetail(p: { snippet: Snippet }) {
   const progLngItem = SNIPPETS_METADATA[p.snippet.technology];
   const handleDeleteSnippet = async () => {
     setIsDialogOpen(false);
-    const response = await ky
-      .delete("/api/snippets/" + p.snippet.id)
-      .json<ApiResponse<Snippet>>();
+    const { error, message } = await deleteSnippet(p.snippet.id);
 
-    toast[response.error ? "error" : "info"](
-      response.error ? "Snippet created successfully" : response.message
+    toast[error ? "error" : "info"](
+      error ? "Snippet created successfully" : message
     );
-    if (!response.error) {
+    if (!error) {
       router.push("/");
       router.refresh();
     }

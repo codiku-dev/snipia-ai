@@ -1,6 +1,5 @@
 "use server";
 import { db } from "@/lib/db";
-import { delayReq } from "@/lib/mock";
 import { ApiResponse } from "@/types/response";
 import { auth } from "@clerk/nextjs";
 import { Language, Snippet, Technology } from "@prisma/client";
@@ -57,15 +56,12 @@ export const createSnippet = async (
 
     createSnippetSchema.parse(body);
 
-    const snippetCreated = await delayReq(
-      await db.snippet.create({
-        data: {
-          ...body,
-          userId,
-        },
-      }),
-      2000
-    );
+    const snippetCreated = await db.snippet.create({
+      data: {
+        ...body,
+        userId,
+      },
+    });
 
     return {
       data: snippetCreated,

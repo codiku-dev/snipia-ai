@@ -1,6 +1,5 @@
 import { readAllTechnologies } from "@/api/snippets/service";
 import { NavItem } from "./NavItem";
-import { delayReq } from "@/lib/mock";
 import Skeleton from "react-loading-skeleton";
 import { Suspense } from "react";
 export async function Nav() {

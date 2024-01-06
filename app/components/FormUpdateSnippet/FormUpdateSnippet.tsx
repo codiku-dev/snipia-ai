@@ -1,15 +1,19 @@
 "use client";
 
 import { SNIPPETS_METADATA } from "@/constant";
+import { useMutation } from "@tanstack/react-query";
 
 import { Snippet, Technology } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
-import { updateSnippetServAction } from "@/actions/snippets";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { FieldError } from "@/components/FieldError";
+import { updateSnippet } from "@/api/snippets/[id]/service";
+import { updateSnippetSchema } from "@/api/snippets/[id]/schema";
+import { Button } from "../Button";
+
 const MAX_LENGTH_CONTENT = 5000;
 const formSchema = z.object({
   title: z.string().min(1),
@@ -17,7 +21,7 @@ const formSchema = z.object({
   content: z.string().min(1).max(MAX_LENGTH_CONTENT),
   technology: z.nativeEnum(Technology),
 });
-export type FormValuesUpdateSnippet = typeof formSchema._type;
+export type Form = typeof formSchema._type;
 
 export function FormUpdateSnippet(p: { snippet: Snippet }) {
   const router = useRouter();
@@ -26,7 +30,7 @@ export function FormUpdateSnippet(p: { snippet: Snippet }) {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm<FormValuesUpdateSnippet>({
+  } = useForm<Form>({
     resolver: zodResolver(formSchema),
     mode: "onChange",
     defaultValues: {
@@ -37,23 +41,24 @@ export function FormUpdateSnippet(p: { snippet: Snippet }) {
     },
   });
 
-  const submitServerAction = async (formData: FormValuesUpdateSnippet) => {
-    const updatedSnippet = await updateSnippetServAction(
-      p.snippet.id,
-      formData
-    );
-
-    toast(
-      <ul>
-        {updatedSnippet.message?.split(",").map((msg, i) => (
-          <li key={i}>{msg}</li>
-        ))}
-      </ul>
-    );
-    if (!updatedSnippet.error) {
-      router.push("/");
-      router.refresh();
-    }
+  const { mutate: createSnippetMut, isPending } = useMutation({
+    mutationFn: (body: Form) => updateSnippet(p.snippet.id, body),
+    onSuccess: ({ error, message }) => {
+      toast(
+        <ul>
+          {message?.split(",").map((msg, i) => (
+            <li key={i}>{msg}</li>
+          ))}
+        </ul>
+      );
+      if (!error) {
+        router.push("/");
+        router.refresh();
+      }
+    },
+  });
+  const submitServerAction = async (formData: Form) => {
+    createSnippetMut(formData);
   };
 
   const inputTitle = (
@@ -111,7 +116,7 @@ export function FormUpdateSnippet(p: { snippet: Snippet }) {
         {textareaContent}
       </div>
       <div className="flex justify-end ">
-        <button>Save</button>
+        <Button disabled={isPending}>Save</Button>
       </div>
     </form>
   );

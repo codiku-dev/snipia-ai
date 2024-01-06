@@ -4,6 +4,7 @@ import { ApiResponse } from "@/types/response";
 import { auth } from "@clerk/nextjs";
 import { Language, Snippet, Technology } from "@prisma/client";
 import { z } from "zod";
+import { updateSnippetSchema } from "./schema";
 
 export const deleteSnippet = async (
   id: number
@@ -32,17 +33,6 @@ export const deleteSnippet = async (
     };
   }
 };
-
-const updateSnippetSchema = z
-  .object({
-    content: z.string().min(1).optional(),
-    title: z.string().min(1).optional(),
-    language: z.nativeEnum(Language).optional(),
-    technology: z.nativeEnum(Technology).optional(),
-  })
-  .refine((data) => Object.values(data).some((value) => value !== undefined), {
-    message: "At least one value must be provided",
-  });
 
 export const updateSnippet = async (
   id: number,

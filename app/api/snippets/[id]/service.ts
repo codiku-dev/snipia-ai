@@ -8,7 +8,6 @@ import { z } from "zod";
 export const deleteSnippet = async (
   id: number
 ): Promise<ApiResponse<Snippet>> => {
-  console.log("go delete snippet");
   try {
     const { userId } = auth();
     if (!userId) {
@@ -25,7 +24,6 @@ export const deleteSnippet = async (
       message: "Snippet deleted successfully",
     };
   } catch (error) {
-    console.log("Error !", error);
     return {
       data: null,
       error: true,

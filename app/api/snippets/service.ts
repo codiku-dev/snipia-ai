@@ -1,10 +1,12 @@
+"use server";
 import { db } from "@/lib/db";
+import { delayReq } from "@/lib/mock";
 import { ApiResponse } from "@/types/response";
 import { auth } from "@clerk/nextjs";
 import { Language, Snippet, Technology } from "@prisma/client";
 import { z } from "zod";
 
-export const readAllSnippetsSchema = z.object({
+const readAllSnippetsSchema = z.object({
   name: z.string().optional(),
   userId: z.string(),
 });
@@ -55,12 +57,16 @@ export const createSnippet = async (
 
     createSnippetSchema.parse(body);
 
-    const snippetCreated = await db.snippet.create({
-      data: {
-        ...body,
-        userId,
-      },
-    });
+    const snippetCreated = await delayReq(
+      await db.snippet.create({
+        data: {
+          ...body,
+          userId,
+        },
+      }),
+      2000
+    );
+
     return {
       data: snippetCreated,
       message: "Snippet created successfully",

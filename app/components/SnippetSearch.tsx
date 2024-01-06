@@ -42,7 +42,8 @@ export function SnippetSearch(p: { snippets: Snippet[] } & WithFallback) {
       <SearchBar onChange={setCurrSearchQuery} />
       <div className="overflow-y-auto  h-full">
         {p.snippets.length === 0 && !p.isFallback && linkCreateSnippet}
-        {filteredSnippets.length === 0 &&
+        {currSearchQuery !== "" &&
+          filteredSnippets.length === 0 &&
           !p.isFallback &&
           noSnippetFoundForQuery}
         <SnippetList isFallback={p.isFallback} snippets={filteredSnippets} />

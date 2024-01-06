@@ -2,16 +2,17 @@
 import { RxMagicWand } from "react-icons/rx";
 import { SNIPPETS_METADATA } from "@/constant";
 import { useForm } from "react-hook-form";
-import { ApiResponse } from "@/types/response";
-import { Snippet, Technology } from "@prisma/client";
+import { Technology } from "@prisma/client";
 import { useRouter } from "next/navigation";
-import ky from "ky";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { FieldError } from "@/components/FieldError";
 import { ClipboardEvent } from "react";
 import { genCodeMetadata } from "@/actions/text-cortex";
+import { useMutation } from "@tanstack/react-query";
+import { createSnippet } from "@/api/snippets/service";
+import { Button } from "../Button";
 
 const MAX_LENGTH_CONTENT = 5000;
 const formSchema = z.object({
@@ -39,28 +40,25 @@ export function FormCreateSnippet() {
   });
   const content = watch("content");
 
-  const submit = async (formData: Form) => {
-    // Retrieve associated language
-    const language = SNIPPETS_METADATA[formData.technology].language;
-    // Create the snippet
-    const createdSnippet: ApiResponse<Snippet> = await ky
-      .post("/api/snippets", {
-        json: {
-          ...formData,
-          language,
-        },
-      })
-      .json();
-    toast[createdSnippet.error ? "error" : "info"](
-      createdSnippet.error
-        ? "Snippet created successfully"
-        : createdSnippet.message
-    );
+  const { mutate: createSnippetMut, isPending } = useMutation({
+    mutationFn: createSnippet,
+    onSuccess: ({ error, message }) => {
+      if (!error) {
+        router.push("/");
+        router.refresh();
+      }
 
-    if (!createdSnippet.error) {
-      router.push("/");
-      router.refresh();
-    }
+      toast[error ? "error" : "success"](
+        error ? message : "Snippet created successfully"
+      );
+    },
+  });
+  const submit = async (formData: Form) => {
+    const language = SNIPPETS_METADATA[formData.technology].language;
+    createSnippetMut({
+      ...formData,
+      language,
+    });
   };
 
   const handleContentPaste = async (e: ClipboardEvent<HTMLTextAreaElement>) => {
@@ -69,7 +67,6 @@ export function FormCreateSnippet() {
       const { data } = await genCodeMetadata(pastedText);
 
       if (data) {
-        console.log("the data", data);
         setValue("title", data.title);
         if (SNIPPETS_METADATA[data.technology]) {
           setValue("name", data.technology + "-" + data.name);
@@ -145,7 +142,7 @@ export function FormCreateSnippet() {
         )}
       </div>
       <div className="flex justify-end">
-        <button>Save</button>
+        <Button disabled={isPending}>Save </Button>
       </div>
     </form>
   );

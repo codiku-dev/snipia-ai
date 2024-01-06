@@ -14,23 +14,29 @@ import { ApiResponse } from "@/types/response";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { deleteSnippet } from "@/api/snippets/[id]/service";
+import { useMutation } from "@tanstack/react-query";
 
 export function SnippetDetail(p: { snippet: Snippet }) {
   const router = useRouter();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const progLngItem = SNIPPETS_METADATA[p.snippet.technology];
+
+  const { mutate: deleteSnippetMutation, isPending } = useMutation({
+    mutationFn: deleteSnippet,
+    onSuccess: ({ error, message }) => {
+      toast[error ? "error" : "info"](
+        error ? message : "Snippet delete successfully"
+      );
+      if (!error) {
+        router.push("/");
+        router.refresh();
+      }
+    },
+  });
+
   const handleDeleteSnippet = async () => {
     setIsDialogOpen(false);
-    const { error, message } = await deleteSnippet(p.snippet.id);
-
-    toast[error ? "error" : "info"](
-      error ? message : "Snippet delete successfully"
-    );
-    console.log(error);
-    if (!error) {
-      router.push("/");
-      router.refresh();
-    }
+    deleteSnippetMutation(p.snippet.id);
   };
   const copyCodeToClipboard = (e: MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -102,11 +108,13 @@ export function SnippetDetail(p: { snippet: Snippet }) {
             </h3>
             <button
               onClick={handleDeleteSnippet}
+              disabled={isPending}
               className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2"
             >
               Yes, do it.
             </button>
             <button
+              disabled={isPending}
               className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
               onClick={() => setIsDialogOpen(false)}
             >

@@ -2,6 +2,7 @@
 import { RiSearchLine } from "react-icons/ri";
 import { ChangeEvent } from "react";
 import { useRouter } from "next/navigation";
+import Skeleton from "react-loading-skeleton";
 
 export function SearchBar(p: { onChange: (query: string) => void }) {
   const router = useRouter();
@@ -28,3 +29,7 @@ export function SearchBar(p: { onChange: (query: string) => void }) {
     </div>
   );
 }
+
+export const SearchBarSkel = (
+  <Skeleton className=" rounded-lg" height={88} count={1} />
+);

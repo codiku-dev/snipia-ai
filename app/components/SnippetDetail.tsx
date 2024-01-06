@@ -24,8 +24,9 @@ export function SnippetDetail(p: { snippet: Snippet }) {
     const { error, message } = await deleteSnippet(p.snippet.id);
 
     toast[error ? "error" : "info"](
-      error ? "Snippet created successfully" : message
+      error ? message : "Snippet delete successfully"
     );
+    console.log(error);
     if (!error) {
       router.push("/");
       router.refresh();

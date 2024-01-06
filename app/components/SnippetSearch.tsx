@@ -1,19 +1,19 @@
 "use client";
 import { SearchBar } from "@/components/SearchBar";
-import SnippetList from "@/components/SnippetList";
 import { Snippet } from "@prisma/client";
 import Link from "next/link";
 import { useState } from "react";
 import { SNIPPETS_METADATA } from "@/constant";
+import { WithFallback } from "@/types/fallback";
+import { SnippetList } from "./SnippetList";
 
-export function SnippetSearch(p: { snippets: Snippet[] }) {
+export function SnippetSearch(p: { snippets: Snippet[] } & WithFallback) {
   const [currSearchQuery, setCurrSearchQuery] = useState<string>("");
   const filteredSnippets = p.snippets!.filter((s) =>
     [
       s.language,
       s.technology,
       s.title,
-      s.content,
       SNIPPETS_METADATA[s.technology].label,
     ].some((field) =>
       field.toLowerCase().includes(currSearchQuery?.toLowerCase())
@@ -31,15 +31,21 @@ export function SnippetSearch(p: { snippets: Snippet[] }) {
       </Link>
     </div>
   );
+
+  const noSnippetFoundForQuery = (
+    <div className="text-white">
+      No snippet found for the query : {currSearchQuery}
+    </div>
+  );
   return (
     <main className="flex flex-col h-[89vh] ">
       <SearchBar onChange={setCurrSearchQuery} />
       <div className="overflow-y-auto  h-full">
-        {filteredSnippets.length > 0 ? (
-          <SnippetList snippets={filteredSnippets} />
-        ) : (
-          linkCreateSnippet
-        )}
+        {p.snippets.length === 0 && !p.isFallback && linkCreateSnippet}
+        {filteredSnippets.length === 0 &&
+          !p.isFallback &&
+          noSnippetFoundForQuery}
+        <SnippetList isFallback={p.isFallback} snippets={filteredSnippets} />
       </div>
     </main>
   );

@@ -4,7 +4,7 @@ export const withSkeleton = (
   Component: FunctionComponent<any>,
   Skeleton: ReactElement
 ) => {
-  return (props: any) => {
-    return props.isFallback ? Skeleton : <Component {...props} />;
+  return (p: any) => {
+    return p.isFallback ? Skeleton : <Component {...p} />;
   };
 };

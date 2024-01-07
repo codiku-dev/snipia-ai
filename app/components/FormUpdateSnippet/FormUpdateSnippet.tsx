@@ -11,9 +11,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { FieldError } from "@/components/FieldError";
 import { updateSnippet } from "@/api/snippets/[id]/service";
-import { updateSnippetSchema } from "@/api/snippets/[id]/schema";
 import { Button } from "../Button";
-import { WithFallback } from "@/types/fallback";
 import Skeleton from "react-loading-skeleton";
 import { withSkeleton } from "@/lib/suspense";
 

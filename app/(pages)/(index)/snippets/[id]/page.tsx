@@ -1,6 +1,5 @@
 import { SnippetDetail } from "@/components/SnippetDetail";
 import { db } from "@/lib/db";
-import { delayReq } from "@/lib/mock";
 import { auth } from "@clerk/nextjs";
 
 export default async function SnippetDetailPage(p: { params: { id: string } }) {

@@ -22,7 +22,7 @@ export const SnippetCard = withSkeleton(
     const cardBody = (
       <div className="flex flex-col justify-end h-full ">
         <div
-          className="hover:bg-main-700 px-5 py-4 rounded-b-3xl"
+          className="hover:bg-main-600  px-5 py-4 rounded-b-3xl"
           onClick={copyCodeToClipboard}
         >
           <div className="font-semibold text-md text-main-100 uppercase">
@@ -49,7 +49,7 @@ export const SnippetCard = withSkeleton(
     return (
       <Link
         href={`/snippets/${p.snippet.id}`}
-        className="relative cursor-pointer shadow-xl bg-main-900 h-52 w-60 rounded-3xl transition transform hover:scale-105 "
+        className={`hover:ring-[0.5px] hover:ring-[${progLngItem.color}] relative cursor-pointer shadow-xl bg-main-900 h-52 w-60 rounded-3xl transition transform hover:scale-105 `}
       >
         <div className="overflow-hidden relative rounded-tl-3xl  h-full w-full">
           {radialGradient}

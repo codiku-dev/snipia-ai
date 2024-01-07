@@ -1,6 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --bash-color: #00ff85;
+  --c-color: #00599c;
+  --csharp-color: #3f049f;
+  --cpp-color: #00589c;
+  --css-color: #214ce5;
+  --html-color: #d3d3d3;
+  --java-color: #ffffff;
+  --javascript-color: #ffec3e;
+  --kotlin-color: #c5c0eb;
+  --nextjs-color: #ffffff;
+  --nodejs-color: #8bcc00;
+  --php-color: #777bb3;
+  --python-color: #5e95ff;
+  --react-color: #00b4cc;
+  --ruby-color: #ffb4ae;
+  --rust-color: #f74c00;
+  --swift-color: #ffe9e2;
+  --typescript-color: #4950ff;
+}
+
 @layer base {
   body {
     @apply bg-main-700 h-screen overflow-y-hidden;

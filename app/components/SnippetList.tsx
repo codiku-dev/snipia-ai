@@ -1,9 +1,9 @@
 import { SnippetCard } from "@/components/SnippetCard";
-import { withSkeletonHoc } from "@/lib/suspense";
+import { withSkeleton } from "@/lib/suspense";
 import { WithFallback } from "@/types/fallback";
 import { Snippet } from "@prisma/client";
 
-export const SnippetList = withSkeletonHoc(
+export const SnippetList = withSkeleton(
   (p: { snippets: Snippet[] } & WithFallback) => {
     return (
       <div className="p-20 flex flex-wrap gap-y-20 gap-x-6">

@@ -1,6 +1,6 @@
 import { FunctionComponent, ReactElement } from "react";
 /* eslint-disable react/display-name */
-export const withSkeletonHoc = (
+export const withSkeleton = (
   Component: FunctionComponent<any>,
   Skeleton: ReactElement
 ) => {

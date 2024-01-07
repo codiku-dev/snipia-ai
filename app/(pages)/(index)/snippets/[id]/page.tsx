@@ -6,12 +6,9 @@ import { auth } from "@clerk/nextjs";
 export default async function SnippetDetailPage(p: { params: { id: string } }) {
   const { userId } = auth();
 
-  const snippet = await delayReq(
-    await db.snippet.findFirst({
-      where: { userId: userId!, id: Number(p.params.id) },
-    }),
-    1000
-  );
+  const snippet = await db.snippet.findFirst({
+    where: { userId: userId!, id: Number(p.params.id) },
+  });
 
   if (!snippet) {
     return <div>No snippet found...</div>;

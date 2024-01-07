@@ -7,10 +7,10 @@ import Link from "next/link";
 import { MouseEvent, Suspense } from "react";
 import { toast } from "sonner";
 import Skeleton from "react-loading-skeleton";
-import { withSkeletonHoc } from "@/lib/suspense";
+import { withSkeleton } from "@/lib/suspense";
 import { WithFallback } from "@/types/fallback";
 
-export const SnippetCard = withSkeletonHoc(
+export const SnippetCard = withSkeleton(
   (p: { snippet: Snippet } & WithFallback) => {
     const progLngItem = SNIPPETS_METADATA[p.snippet.technology];
 

@@ -15,11 +15,11 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { deleteSnippet } from "@/api/snippets/[id]/service";
 import { useMutation } from "@tanstack/react-query";
-import { withSkeletonHoc } from "@/lib/suspense";
+import { withSkeleton } from "@/lib/suspense";
 import { WithFallback } from "@/types/fallback";
 import Skeleton from "react-loading-skeleton";
 
-export const SnippetDetail = withSkeletonHoc(
+export const SnippetDetail = withSkeleton(
   (p: { snippet: Snippet } & WithFallback) => {
     const router = useRouter();
     const [isDialogOpen, setIsDialogOpen] = useState(false);

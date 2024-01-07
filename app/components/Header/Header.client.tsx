@@ -3,11 +3,11 @@ import Image from "next/image";
 import logoPng from "/public/logo.png";
 import Link from "next/link";
 import { UserButton, useAuth } from "@clerk/nextjs";
-import { MouseEvent } from "react";
 import { toast } from "sonner";
 import { RxCopy } from "react-icons/rx";
+import { DrawerMobile } from "../Nav/DrawerMobile";
 
-export function Header() {
+export function Header(p: { nav: React.ReactNode }) {
   const { userId } = useAuth();
   const copyUserIdToClipboard = () => {
     navigator.clipboard.writeText(userId!);
@@ -16,6 +16,7 @@ export function Header() {
 
   return (
     <header className="bg-main-800 px-8 py-8 flex justify-between">
+      <DrawerMobile>{p.nav}</DrawerMobile>
       <Link href="/">
         <Image
           src={logoPng}
@@ -27,9 +28,12 @@ export function Header() {
         />
       </Link>
       <div className="flex items-center space-x-3 text-white">
-        <UserButton afterSignOutUrl="/auth/sign-in" />
+        <UserButton
+          appearance={{ elements: { userButtonPopoverCard: "bg-main-900" } }}
+          afterSignOutUrl="/auth/sign-in"
+        />
         <div
-          className="cursor-pointer flex justify-center items-center"
+          className="cursor-pointer flex justify-center items-center hover:text-main-50"
           onClick={copyUserIdToClipboard}
         >
           <div className="w-5 h-5">

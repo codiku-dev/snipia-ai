@@ -15,7 +15,7 @@ export function Header(p: { nav: React.ReactNode }) {
   };
 
   return (
-    <header className="bg-main-700 px-8 py-8 flex justify-between z-10">
+    <header className="bg-main-700 px-8 py-8 flex w-full justify-between z-10">
       <DrawerMobile>{p.nav}</DrawerMobile>
       <Link href="/">
         <Image

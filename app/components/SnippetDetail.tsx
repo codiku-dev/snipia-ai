@@ -77,7 +77,7 @@ export const SnippetDetail = withSkeleton(
 
     const codeHightLighter = (
       <SyntaxHighlighter
-        customStyle={{ height: "100%", paddingBottom: "15rem" }}
+        customStyle={{ height: "auto" }}
         showLineNumbers
         language={p.snippet.language}
         style={theme}
@@ -131,11 +131,11 @@ export const SnippetDetail = withSkeleton(
       </div>
     );
     return (
-      <div>
-        <div className="p-8 mb-44 relative border-2 border-main-500 rounded-xl">
+      <div className="">
+        <div className="p-8  relative border-2 border-main-500 rounded-xl">
           <div>
             {title}
-            <div className="flex flex-col h-[38rem]">
+            <div className="flex flex-col mt-6 ">
               {actionButtons}
               {codeHightLighter}
             </div>

@@ -14,9 +14,11 @@ export async function Nav() {
 
   return (
     technologies?.length! > 0 && (
-      <div className="flex flex-col space-y-6 p-6 text-white bg-main-900 py-8  text-sm rounded-lg justify-center">
-        <h2>Categories</h2>
-        <ul className="space-y-2">{renderTechnologies}</ul>
+      <div className="">
+        <div className="flex flex-col space-y-6 p-6 text-white bg-main-900 py-8  text-sm rounded-lg justify-center">
+          <h2>Categories</h2>
+          <ul className="space-y-2">{renderTechnologies}</ul>
+        </div>
       </div>
     )
   );

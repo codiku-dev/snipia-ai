@@ -25,7 +25,7 @@
 
 @layer base {
   body {
-    @apply bg-main-800 h-screen;
+    @apply bg-main-800;
   }
   h1 {
     @apply text-main-100 text-4xl;

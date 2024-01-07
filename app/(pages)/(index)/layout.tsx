@@ -9,7 +9,7 @@ export default async function SnippetLayout(p: { children: React.ReactNode }) {
         <div className="hidden md:block">
           <NavSuspense />
         </div>
-        <div className="md:ml-8 w-full">{p.children}</div>
+        <div className="w-full md:ml-8 overflow-x-hidden ">{p.children}</div>
       </div>
     </div>
   );

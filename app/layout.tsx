@@ -6,9 +6,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
 const montserrat = Montserrat({ subsets: ["latin"] });
 import { Toaster } from "sonner";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Providers } from "./lib/providers";
-const queryClient = new QueryClient();
 
 export const metadata: Metadata = {
   title: "Snipia",
@@ -36,7 +34,7 @@ export default function RootLayout({
     >
       <html lang="en">
         <body className={`${montserrat.className}`}>
-          <Toaster />
+          <Toaster richColors />
           <Providers>{children}</Providers>
         </body>
       </html>

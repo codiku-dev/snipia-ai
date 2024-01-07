@@ -39,13 +39,17 @@ export function SnippetSearch(p: { snippets: Snippet[] } & WithFallback) {
       return (
         <div className="text-white mt-2 flex items-center justify-center">
           {filteredSnippets.length} snippets found for the query :{" "}
-          <span className="font-semibold">"{currSearchQuery}"</span>
+          <span className="font-semibold">
+            {'"'}
+            {currSearchQuery}
+            {'"'}
+          </span>
         </div>
       );
     }
   };
   return (
-    <main className="flex flex-col " style={{ height: windowH - 100 }}>
+    <main className="flex flex-col " style={{ height: windowH - 180 }}>
       <SearchBar onChange={setCurrSearchQuery} />
       <div className="overflow-y-auto  h-full">
         {p.snippets.length === 0 && !p.isFallback && linkCreateSnippet}

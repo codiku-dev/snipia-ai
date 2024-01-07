@@ -108,7 +108,7 @@ export const FormUpdateSnippet = withSkeleton(
     return (
       <form
         onSubmit={handleSubmit(submitServerAction)}
-        className="space-y-8 w-[50rem] "
+        className="space-y-8 max-w-[50rem] "
       >
         <div className="space-y-6">
           <h1>Update snippet</h1>
@@ -124,21 +124,21 @@ export const FormUpdateSnippet = withSkeleton(
     );
   },
   <div className="space-y-8">
-    <div className="space-y-8">
+    <div className="space-y-8 max-w-[50rem]">
       <div>
-        <Skeleton height={70} width={"50rem"} />
+        <Skeleton height={70} />
       </div>
       <div>
-        <Skeleton height={50} width={"50rem"} />
+        <Skeleton height={50} />
       </div>
       <div>
-        <Skeleton height={50} width={"50rem"} />
+        <Skeleton height={50} />
       </div>
       <div>
-        <Skeleton height={50} width={"50rem"} />
+        <Skeleton height={50} />
       </div>
       <div>
-        <Skeleton height={384} width={"50rem"} />
+        <Skeleton height={384} />
       </div>
     </div>
   </div>

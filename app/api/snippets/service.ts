@@ -41,7 +41,7 @@ export const createSnippet = async (
         message: "User not signed in",
       };
     }
-
+    console.log("in");
     createSnippetSchema.parse(body);
 
     const snippetCreated = await db.snippet.create({
@@ -56,6 +56,7 @@ export const createSnippet = async (
       message: "Snippet created successfully",
     };
   } catch (error) {
+    console.log(error);
     return {
       data: null,
       error: true,

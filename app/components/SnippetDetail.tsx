@@ -29,10 +29,10 @@ export const SnippetDetail = withSkeleton(
     const { mutate: deleteSnippetMutation, isPending } = useMutation({
       mutationFn: deleteSnippet,
       onSuccess: ({ error, message }) => {
+        toast[error ? "error" : "info"](
+          error ? message : "Snippet delete successfully"
+        );
         if (!error) {
-          toast[error ? "error" : "info"](
-            error ? message : "Snippet delete successfully"
-          );
           router.push("/");
           router.refresh();
         }

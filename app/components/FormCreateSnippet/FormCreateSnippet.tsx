@@ -47,10 +47,10 @@ export const FormCreateSnippet = withSkeleton(
     const { mutate: createSnippetMut, isPending } = useMutation({
       mutationFn: createSnippet,
       onSuccess: ({ error, message }) => {
+        toast[error ? "error" : "success"](
+          error ? message : "Snippet created successfully"
+        );
         if (!error) {
-          toast[error ? "error" : "success"](
-            error ? message : "Snippet created successfully"
-          );
           router.push("/");
           router.refresh();
         }
@@ -134,7 +134,10 @@ export const FormCreateSnippet = withSkeleton(
       </div>
     );
     return (
-      <form onSubmit={handleSubmit(submit)} className="space-y-8  w-[50rem] ">
+      <form
+        onSubmit={handleSubmit(submit)}
+        className="space-y-8  max-w-[50rem] "
+      >
         <div className="space-y-6">
           <h1>New snippet</h1>
           {textareaContent}
@@ -152,11 +155,11 @@ export const FormCreateSnippet = withSkeleton(
       </form>
     );
   },
-  <div className="space-y-8">
+  <div className="space-y-8 max-w-[50rem]">
     <div className="space-y-6">
-      <Skeleton height={50} width={"50rem"} />
-      <Skeleton height={20} width={"50rem"} />
-      <Skeleton height={384} width={"50rem"} />
+      <Skeleton height={50} />
+      <Skeleton height={20} />
+      <Skeleton height={384} />
     </div>
   </div>
 );

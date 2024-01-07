@@ -4,7 +4,7 @@ import Skeleton from "react-loading-skeleton";
 
 export default async function LoadingPage(p: {}) {
   return (
-    <div className="overflow-y-scroll h-full pb-40">
+    <div className="overflow-y-scroll h-full ">
       <FormCreateSnippet isFallback />
     </div>
   );

@@ -8,7 +8,7 @@ export default async function UpdateSnippetPage(p: { params: { id: string } }) {
     userId: userId!,
   });
   return (
-    <div className="overflow-y-scroll h-full pb-40">
+    <div className="overflow-y-scroll h-full ">
       <FormUpdateSnippet snippet={snippet!} />
     </div>
   );

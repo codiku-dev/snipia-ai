@@ -6,8 +6,10 @@ import { useState } from "react";
 import { SNIPPETS_METADATA } from "@/constant";
 import { WithFallback } from "@/types/fallback";
 import { SnippetList } from "./SnippetList";
+import { useWindowHeight } from "@/lib/hooks/use-window-height";
 
 export function SnippetSearch(p: { snippets: Snippet[] } & WithFallback) {
+  const windowH = useWindowHeight();
   const [currSearchQuery, setCurrSearchQuery] = useState<string>("");
   const filteredSnippets = p.snippets!.filter((s) =>
     [
@@ -43,7 +45,7 @@ export function SnippetSearch(p: { snippets: Snippet[] } & WithFallback) {
     }
   };
   return (
-    <main className="flex flex-col h-[89vh] ">
+    <main className="flex flex-col " style={{ height: windowH - 100 }}>
       <SearchBar onChange={setCurrSearchQuery} />
       <div className="overflow-y-auto  h-full">
         {p.snippets.length === 0 && !p.isFallback && linkCreateSnippet}

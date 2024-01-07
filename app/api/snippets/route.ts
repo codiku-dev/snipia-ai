@@ -2,12 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 
 import { ApiResponse } from "@/types/response";
 import { Snippet } from "@prisma/client";
-import {
-  createSnippet,
-  readAllSnippet,
-  readAllSnippetsSchema,
-} from "./service";
+import { createSnippet, readAllSnippet } from "./service";
 import { getQueryParams } from "@/lib/server-utils";
+import { readAllSnippetsSchema } from "./schema";
 
 export async function GET(
   req: NextRequest

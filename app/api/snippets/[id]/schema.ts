@@ -11,3 +11,7 @@ export const updateSnippetSchema = z
   .refine((data) => Object.values(data).some((value) => value !== undefined), {
     message: "At least one value must be provided",
   });
+
+export const readAllSnippetSchema = z.object({
+  userId: z.string().min(1),
+});

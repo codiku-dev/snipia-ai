@@ -1,11 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { deleteSnippet, readSnippet, updateSnippet } from "./service";
 import { getQueryParams } from "@/lib/server-utils";
-import { z } from "zod";
-
-const readAllSnippetSchema = z.object({
-  userId: z.string().min(1),
-});
+import { readAllSnippetSchema } from "./schema";
 
 export async function GET(
   req: NextRequest,

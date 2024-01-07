@@ -9,7 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { FieldError } from "@/components/FieldError";
 import { ClipboardEvent } from "react";
-import { genCodeMetadata } from "@/actions/text-cortex";
+import { genCodeMetadata } from "@/api/text-cortex/service";
 import { useMutation } from "@tanstack/react-query";
 import { createSnippet } from "@/api/snippets/service";
 import { Button } from "../Button";

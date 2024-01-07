@@ -2,13 +2,9 @@
 import { db } from "@/lib/db";
 import { ApiResponse } from "@/types/response";
 import { auth } from "@clerk/nextjs";
-import { Language, Snippet, Technology } from "@prisma/client";
-import { z } from "zod";
+import { Snippet, Technology } from "@prisma/client";
+import { createSnippetSchema, readAllSnippetsSchema } from "./schema";
 
-const readAllSnippetsSchema = z.object({
-  name: z.string().optional(),
-  userId: z.string(),
-});
 export const readAllSnippet = async (
   queryParams: typeof readAllSnippetsSchema._type
 ): Promise<ApiResponse<Snippet[]>> => {
@@ -31,14 +27,6 @@ export const readAllSnippet = async (
     };
   }
 };
-
-const createSnippetSchema = z.object({
-  name: z.string(),
-  content: z.string(),
-  title: z.string(),
-  language: z.nativeEnum(Language),
-  technology: z.nativeEnum(Technology),
-});
 
 export const createSnippet = async (
   body: typeof createSnippetSchema._type

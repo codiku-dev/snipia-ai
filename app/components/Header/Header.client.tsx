@@ -30,7 +30,7 @@ export function Header(p: { nav: React.ReactNode }) {
       <div className="flex items-center space-x-3 text-white">
         <UserButton
           appearance={{ elements: { userButtonPopoverCard: "bg-main-900" } }}
-          afterSignOutUrl="/auth/sign-in"
+          afterSignOutUrl="/sign-in"
         />
         <div
           className="cursor-pointer flex justify-center items-center hover:text-main-50"

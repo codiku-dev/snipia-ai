@@ -32,20 +32,24 @@ export function SnippetSearch(p: { snippets: Snippet[] } & WithFallback) {
     </div>
   );
 
-  const noSnippetFoundForQuery = (
-    <div className="text-white">
-      No snippet found for the query : {currSearchQuery}
-    </div>
-  );
+  const renderCountResults = () => {
+    if (currSearchQuery !== "" && !p.isFallback) {
+      return (
+        <div className="text-white mt-2 flex items-center justify-center">
+          {filteredSnippets.length} snippets found for the query :{" "}
+          <span className="font-semibold">"{currSearchQuery}"</span>
+        </div>
+      );
+    }
+  };
   return (
     <main className="flex flex-col h-[89vh] ">
       <SearchBar onChange={setCurrSearchQuery} />
       <div className="overflow-y-auto  h-full">
         {p.snippets.length === 0 && !p.isFallback && linkCreateSnippet}
-        {currSearchQuery !== "" &&
-          filteredSnippets.length === 0 &&
-          !p.isFallback &&
-          noSnippetFoundForQuery}
+
+        {renderCountResults()}
+
         <SnippetList isFallback={p.isFallback} snippets={filteredSnippets} />
       </div>
     </main>

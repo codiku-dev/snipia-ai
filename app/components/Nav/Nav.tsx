@@ -5,14 +5,14 @@ import { Suspense } from "react";
 export async function Nav() {
   const { data: technologies } = await readAllTechnologies();
 
+  const renderTechnologies = technologies?.map((t) => (
+    <NavItem key={t} technology={t} />
+  ));
+
   return (
     technologies?.length! > 0 && (
-      <div className="text-white bg-main-900 py-8  text-sm rounded-lg flex h-full  justify-center min-w-[12rem]">
-        <ul className="space-y-2">
-          {technologies?.map((t) => (
-            <NavItem key={t} technology={t} />
-          ))}
-        </ul>
+      <div className="hidden md:flex text-white bg-main-900 py-8  text-sm rounded-lg  h-full  justify-center min-w-[12rem]">
+        <ul className="space-y-2">{renderTechnologies}</ul>
       </div>
     )
   );

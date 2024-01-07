@@ -23,8 +23,11 @@ export function SearchBar(p: { onChange: (query: string) => void }) {
   return (
     <div className="bg-main-900 p-6 rounded-lg flex space-x-4">
       {input}
-      <button className="w-24" onClick={() => router.push("/snippets/create")}>
-        + ADD
+      <button
+        className="w-24 fixed bottom-20 right-10 md:static"
+        onClick={() => router.push("/snippets/create")}
+      >
+        + NEW
       </button>
     </div>
   );

@@ -15,9 +15,16 @@ export function Header() {
   };
 
   return (
-    <header className="bg-main-700 px-8 py-8 flex justify-between">
+    <header className="bg-main-800 px-8 py-8 flex justify-between">
       <Link href="/">
-        <Image src={logoPng} alt="Logo" width={192} height={192} priority />
+        <Image
+          src={logoPng}
+          alt="Logo"
+          width={192}
+          height={192}
+          priority
+          className="w-32  md:w-48"
+        />
       </Link>
       <div className="flex items-center space-x-3 text-white">
         <UserButton afterSignOutUrl="/auth/sign-in" />

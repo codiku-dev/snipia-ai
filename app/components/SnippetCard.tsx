@@ -4,7 +4,7 @@ import { Snippet } from "@prisma/client";
 import { SNIPPETS_METADATA } from "@/constant";
 import Image from "next/image";
 import Link from "next/link";
-import { MouseEvent, Suspense } from "react";
+import { MouseEvent } from "react";
 import { toast } from "sonner";
 import Skeleton from "react-loading-skeleton";
 import { withSkeleton } from "@/lib/suspense";
@@ -16,7 +16,7 @@ export const SnippetCard = withSkeleton(
 
     const copyCodeToClipboard = (e: MouseEvent<HTMLDivElement>) => {
       e.preventDefault();
-      navigator.clipboard.writeText("npx snipia add " + p.snippet.name);
+      navigator.clipboard.writeText("npx -y snipia add " + p.snippet.name);
       toast("Command copied into clipboard");
     };
     const cardBody = (

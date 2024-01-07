@@ -18,6 +18,7 @@ import { useMutation } from "@tanstack/react-query";
 import { withSkeleton } from "@/lib/suspense";
 import { WithFallback } from "@/types/fallback";
 import Skeleton from "react-loading-skeleton";
+import { Button } from "./Button";
 
 export const SnippetDetail = withSkeleton(
   (p: { snippet: Snippet } & WithFallback) => {
@@ -28,10 +29,10 @@ export const SnippetDetail = withSkeleton(
     const { mutate: deleteSnippetMutation, isPending } = useMutation({
       mutationFn: deleteSnippet,
       onSuccess: ({ error, message }) => {
-        toast[error ? "error" : "info"](
-          error ? message : "Snippet delete successfully"
-        );
         if (!error) {
+          toast[error ? "error" : "info"](
+            error ? message : "Snippet delete successfully"
+          );
           router.push("/");
           router.refresh();
         }
@@ -110,20 +111,20 @@ export const SnippetDetail = withSkeleton(
               <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
                 Delete snippet ?
               </h3>
-              <button
+              <Button
                 onClick={handleDeleteSnippet}
                 disabled={isPending}
                 className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2"
               >
                 Yes, do it.
-              </button>
-              <button
+              </Button>
+              <Button
                 disabled={isPending}
                 className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
                 onClick={() => setIsDialogOpen(false)}
               >
                 No, cancel
-              </button>
+              </Button>
             </div>
           </div>
         </div>

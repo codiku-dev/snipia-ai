@@ -48,13 +48,12 @@ export const FormCreateSnippet = withSkeleton(
       mutationFn: createSnippet,
       onSuccess: ({ error, message }) => {
         if (!error) {
+          toast[error ? "error" : "success"](
+            error ? message : "Snippet created successfully"
+          );
           router.push("/");
           router.refresh();
         }
-
-        toast[error ? "error" : "success"](
-          error ? message : "Snippet created successfully"
-        );
       },
     });
     const submit = async (formData: Form) => {

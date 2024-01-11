@@ -3,6 +3,8 @@ import { RiSearchLine } from "react-icons/ri";
 import { ChangeEvent } from "react";
 import { useRouter } from "next/navigation";
 import Skeleton from "react-loading-skeleton";
+import { TUTO_SELECTORS } from "./Tutorial/constant";
+import { useTour } from "@reactour/tour";
 
 export function SearchBar(p: { onChange: (query: string) => void }) {
   const router = useRouter();
@@ -24,8 +26,11 @@ export function SearchBar(p: { onChange: (query: string) => void }) {
     <div className="bg-main-900 p-6 rounded-lg flex space-x-4">
       {input}
       <button
+        id={TUTO_SELECTORS.ADD_FIRST_SNIPPET}
         className="w-24 fixed bottom-20 right-10 md:static"
-        onClick={() => router.push("/snippets/create")}
+        onClick={() => {
+          router.push("/snippets/create");
+        }}
       >
         + NEW
       </button>

@@ -10,6 +10,20 @@ export const readAllSnippet = async (
 ): Promise<ApiResponse<Snippet[]>> => {
   try {
     readAllSnippetsSchema.parse(queryParams);
+    let whereParams = queryParams;
+    if (!queryParams.userId) {
+      const { userId } = auth();
+      if (!userId) {
+        return {
+          data: null,
+          error: true,
+          status: 401,
+          message: "User not signed in",
+        };
+      } else {
+        whereParams = { ...whereParams, userId };
+      }
+    }
 
     const snippet = await db.snippet.findMany({ where: { ...queryParams } });
 

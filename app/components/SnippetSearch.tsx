@@ -11,6 +11,7 @@ import { useWindowHeight } from "@/lib/hooks/use-window-height";
 export function SnippetSearch(p: { snippets: Snippet[] } & WithFallback) {
   const windowH = useWindowHeight();
   const [currSearchQuery, setCurrSearchQuery] = useState<string>("");
+
   const filteredSnippets = p.snippets!.filter((s) =>
     [
       s.language,
@@ -52,11 +53,12 @@ export function SnippetSearch(p: { snippets: Snippet[] } & WithFallback) {
     <main className="flex flex-col " style={{ height: windowH - 180 }}>
       <SearchBar onChange={setCurrSearchQuery} />
       <div className="overflow-y-auto  h-full">
-        {p.snippets.length === 0 && !p.isFallback && linkCreateSnippet}
-
         {renderCountResults()}
 
-        <SnippetList isFallback={p.isFallback} snippets={filteredSnippets} />
+        <div>
+          <SnippetList isFallback={p.isFallback} snippets={filteredSnippets} />
+          {p.snippets.length === 0 && !p.isFallback && linkCreateSnippet}
+        </div>
       </div>
     </main>
   );

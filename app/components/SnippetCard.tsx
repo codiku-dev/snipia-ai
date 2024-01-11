@@ -4,26 +4,34 @@ import { Snippet } from "@prisma/client";
 import { SNIPPETS_METADATA } from "@/constant";
 import Image from "next/image";
 import Link from "next/link";
-import { MouseEvent } from "react";
+import { MouseEvent, useEffect } from "react";
 import { toast } from "sonner";
 import Skeleton from "react-loading-skeleton";
 import { withSkeleton } from "@/lib/suspense";
 import { WithFallback } from "@/types/fallback";
+import { useTour } from "@reactour/tour";
+import { TUTO_SELECTORS, getStepIndex } from "./Tutorial/constant";
 
 export const SnippetCard = withSkeleton(
-  (p: { snippet: Snippet } & WithFallback) => {
+  (p: { snippet: Snippet; index: number } & WithFallback) => {
+    const { setCurrentStep, steps } = useTour();
+
     const progLngItem = SNIPPETS_METADATA[p.snippet.technology];
 
     const copyCodeToClipboard = (e: MouseEvent<HTMLDivElement>) => {
       e.preventDefault();
       navigator.clipboard.writeText("npx -y snipia add " + p.snippet.name);
       toast("Command copied into clipboard");
+
+      setCurrentStep(getStepIndex(TUTO_SELECTORS.USER_ID));
     };
+
     const cardBody = (
       <div className="flex flex-col justify-end h-full ">
         <div
           className="hover:bg-main-600  px-5 py-4 rounded-b-3xl"
           onClick={copyCodeToClipboard}
+          id={p.index === 0 ? TUTO_SELECTORS.COMMAND : undefined}
         >
           <div className="font-semibold text-md text-main-100 uppercase">
             {p.snippet.technology}

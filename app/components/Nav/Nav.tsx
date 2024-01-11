@@ -4,10 +4,7 @@ import Skeleton from "react-loading-skeleton";
 import { readAllTechnologies } from "@/api/snippets/service";
 import { delayReq } from "@/lib/mock";
 export async function Nav() {
-  const { data: technologies } = await delayReq(
-    await readAllTechnologies(),
-    3000
-  );
+  const { data: technologies } = await delayReq(await readAllTechnologies());
   const renderTechnologies = technologies?.map((t) => (
     <NavItem key={t} technology={t} />
   ));

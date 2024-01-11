@@ -7,8 +7,8 @@ import { auth } from "@clerk/nextjs";
 export default async function IndexPage() {
   const { userId } = auth();
   const { data: snippets } = await delayReq(
-    await readAllSnippet({ userId: userId! }),
-    2000
+    await readAllSnippet({ userId: userId! })
   );
+
   return <SnippetSearch snippets={snippets!} />;
 }

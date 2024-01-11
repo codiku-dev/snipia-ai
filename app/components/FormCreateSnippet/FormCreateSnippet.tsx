@@ -8,14 +8,16 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { FieldError } from "@/components/FieldError";
-import { ClipboardEvent } from "react";
+import { ClipboardEvent, useEffect } from "react";
 import { genCodeMetadata } from "@/api/text-cortex/service";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createSnippet } from "@/api/snippets/service";
 import { Button } from "../Button";
 import { WithFallback } from "@/types/fallback";
 import { withSkeleton } from "@/lib/suspense";
 import Skeleton from "react-loading-skeleton";
+import { useTour } from "@reactour/tour";
+import { TUTO_SELECTORS } from "../Tutorial/constant";
 
 const MAX_LENGTH_CONTENT = 5000;
 const formSchema = z.object({
@@ -30,7 +32,15 @@ type Form = typeof formSchema._type;
 export const FormCreateSnippet = withSkeleton(
   (p: WithFallback) => {
     const router = useRouter();
-
+    const { setCurrentStep, setIsOpen } = useTour();
+    const nextTutorialStep = () => {
+      setCurrentStep((step) => step + 1);
+    };
+    const query = useQueryClient();
+    useEffect(() => {
+      navigator.clipboard.writeText("console.log('Hello World !')");
+      nextTutorialStep();
+    }, []);
     const {
       register,
       handleSubmit,
@@ -43,7 +53,8 @@ export const FormCreateSnippet = withSkeleton(
       defaultValues: {},
     });
     const content = watch("content");
-
+    const name = watch("name");
+    const commandNpx = "npx -y snipia add " + name + " /yourPath/file.txt";
     const { mutate: createSnippetMut, isPending } = useMutation({
       mutationFn: createSnippet,
       onSuccess: ({ error, message }) => {
@@ -51,11 +62,15 @@ export const FormCreateSnippet = withSkeleton(
           error ? message : "Snippet created successfully"
         );
         if (!error) {
+          console.log("invalidate");
+          query.invalidateQueries({ queryKey: ["snippets"] });
+          console.log("tuto-command", commandNpx);
+          localStorage.setItem("tuto-command", commandNpx);
           router.push("/");
-          router.refresh();
         }
       },
     });
+
     const submit = async (formData: Form) => {
       const language = SNIPPETS_METADATA[formData.technology].language;
       createSnippetMut({
@@ -79,6 +94,7 @@ export const FormCreateSnippet = withSkeleton(
           }
         }
       }
+      nextTutorialStep();
     };
 
     const technoSelect = (
@@ -125,7 +141,7 @@ export const FormCreateSnippet = withSkeleton(
         <label htmlFor="content">Content</label>
         <textarea
           {...register("content")}
-          id="content"
+          id={TUTO_SELECTORS.PASTE_CODE}
           className="h-96 w-full"
           onPaste={handleContentPaste}
           placeholder="Paste your snippet here..."
@@ -142,15 +158,18 @@ export const FormCreateSnippet = withSkeleton(
           <h1>New snippet</h1>
           {textareaContent}
           {content && (
-            <>
-              {inputName}
-              {inputTitle}
-              {technoSelect}
-            </>
+            <div id={TUTO_SELECTORS.AI}>
+              <div>
+                {inputName}
+                {inputTitle}
+                {technoSelect}
+              </div>
+
+              <div className="flex justify-end">
+                <Button disabled={isPending}>Save</Button>
+              </div>
+            </div>
           )}
-        </div>
-        <div className="flex justify-end">
-          <Button disabled={isPending}>Save </Button>
         </div>
       </form>
     );

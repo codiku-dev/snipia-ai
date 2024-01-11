@@ -3,7 +3,7 @@ import { z } from "zod";
 
 export const readAllSnippetsSchema = z.object({
   name: z.string().optional(),
-  userId: z.string(),
+  userId: z.string().optional(),
 });
 
 export const createSnippetSchema = z.object({

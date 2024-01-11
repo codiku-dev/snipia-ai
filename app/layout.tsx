@@ -5,7 +5,6 @@ import { Montserrat } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
 const montserrat = Montserrat({ subsets: ["latin"] });
-import { Toaster } from "sonner";
 import { Providers } from "./lib/providers";
 
 export const metadata: Metadata = {
@@ -34,7 +33,6 @@ export default function RootLayout({
     >
       <html lang="en">
         <body className={`${montserrat.className}`}>
-          <Toaster richColors />
           <Providers>{children}</Providers>
         </body>
       </html>

@@ -6,12 +6,18 @@ import { UserButton, useAuth } from "@clerk/nextjs";
 import { toast } from "sonner";
 import { RxCopy } from "react-icons/rx";
 import { DrawerMobile } from "../Nav/DrawerMobile";
+import { useTour } from "@reactour/tour";
+import { TUTO_SELECTORS } from "../Tutorial/constant";
 
 export function Header(p: { nav: React.ReactNode }) {
+  const { setIsOpen } = useTour();
+
   const { userId } = useAuth();
   const copyUserIdToClipboard = () => {
     navigator.clipboard.writeText(userId!);
     toast("userId copied to clipboard");
+    setIsOpen(false);
+    localStorage.removeItem("tuto-command");
   };
 
   return (
@@ -33,6 +39,7 @@ export function Header(p: { nav: React.ReactNode }) {
           afterSignOutUrl="/sign-in"
         />
         <div
+          id={TUTO_SELECTORS.USER_ID}
           className="cursor-pointer flex justify-center items-center hover:text-main-50"
           onClick={copyUserIdToClipboard}
         >

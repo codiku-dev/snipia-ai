@@ -32,7 +32,7 @@ type Form = typeof formSchema._type;
 export const FormCreateSnippet = withSkeleton(
   (p: WithFallback) => {
     const router = useRouter();
-    const { setCurrentStep, setIsOpen } = useTour();
+    const { setCurrentStep } = useTour();
     const nextTutorialStep = () => {
       setCurrentStep((step) => step + 1);
     };
@@ -54,7 +54,7 @@ export const FormCreateSnippet = withSkeleton(
     });
     const content = watch("content");
     const name = watch("name");
-    const commandNpx = "npx -y snipia add " + name + " /yourPath/file.txt";
+    const commandNpx = "npx -y snipia add " + name;
     const { mutate: createSnippetMut, isPending } = useMutation({
       mutationFn: createSnippet,
       onSuccess: ({ error, message }) => {

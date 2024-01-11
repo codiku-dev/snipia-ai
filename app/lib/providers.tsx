@@ -19,6 +19,12 @@ export function Providers(p: PropsWithChildren) {
         defaultOpen={false}
         showPrevNextButtons={false}
         ContentComponent={TutorialComponent}
+        styles={{
+          popover: (base) => ({
+            ...base,
+            maxWidth: "none",
+          }),
+        }}
       >
         <ReactQueryDevtools />
         <SkeletonTheme highlightColor="#141519" baseColor="#1A1B1F">

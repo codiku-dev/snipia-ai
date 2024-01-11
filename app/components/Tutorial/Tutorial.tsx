@@ -9,14 +9,7 @@ export const TutorialComponent = (p: PopoverContentProps) => {
     case getStepIndex(TUTO_SELECTORS.COMMAND):
       return (
         <GenericTutoContent {...p}>
-          <SyntaxHighlighter
-            customStyle={{ height: "auto" }}
-            showLineNumbers
-            language={"bash"}
-            style={theme}
-          >
-            {localStorage.getItem("tuto-command") || ""}
-          </SyntaxHighlighter>
+          <TutoCommandStepContent {...p} />
         </GenericTutoContent>
       );
     default:
@@ -53,16 +46,31 @@ export const GenericTutoContent = (
   );
 };
 
-export const TutoCommandStepContent = (p: PopoverContentProps) => (
-  <SyntaxHighlighter
-    customStyle={{ height: "auto" }}
-    showLineNumbers
-    language={"bash"}
-    style={theme}
-  >
-    {localStorage.getItem("tuto-command") || ""}
-  </SyntaxHighlighter>
-);
+export const TutoCommandStepContent = (p: PopoverContentProps) => {
+  const command = localStorage.getItem("tuto-command");
+  return (
+    <div>
+      <SyntaxHighlighter
+        customStyle={{ height: "auto" }}
+        showLineNumbers
+        language={"bash"}
+        style={theme}
+      >
+        {command?.replace('"', "") || ""}
+      </SyntaxHighlighter>
+      You can even add a file path at the end of the command to create a file
+      out of it.
+      <SyntaxHighlighter
+        customStyle={{ height: "auto" }}
+        showLineNumbers
+        language={"bash"}
+        style={theme}
+      >
+        {command?.replace('"', "") + " /some/file.txt" || ""}
+      </SyntaxHighlighter>
+    </div>
+  );
+};
 
 /*
 export const TutoBadge: ComponentType<any> | undefined = (p) => {

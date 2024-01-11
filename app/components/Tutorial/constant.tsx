@@ -31,14 +31,13 @@ export const TUTORIAL_STEPS = [
 
   {
     selector: "#" + TUTO_SELECTORS.COMMAND,
-    content:
-      "Click to copy the command into your clip board.            You can even add a file path at the end of the command to create a file out of it.",
+    content: "Click to copy the command into your clip board.",
     disableActions: true,
   },
   {
     selector: "#" + TUTO_SELECTORS.USER_ID,
     content:
-      "Once you ran the npx command, your userId will be asked once ever. You can click here to copy it.",
+      "After you ran the npx command, your userId will be asked (once). You can click here to copy it.",
     disableActions: true,
   },
 ];

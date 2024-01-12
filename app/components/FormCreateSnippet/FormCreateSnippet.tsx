@@ -38,7 +38,7 @@ export const FormCreateSnippet = withSkeleton(
     };
     const query = useQueryClient();
     useEffect(() => {
-      if (localStorage.getItem("tuto-done") !== "true") {
+      if (localStorage.getItem("tutorial-done") !== "true") {
         navigator.clipboard.writeText("console.log('Hello World !')");
         nextTutorialStep();
       }

@@ -23,16 +23,19 @@ export function Header(p: { nav: React.ReactNode }) {
   return (
     <header className="bg-main-700 px-8 py-8 flex w-full justify-between z-10">
       <DrawerMobile>{p.nav}</DrawerMobile>
-      <Link href="/">
-        <Image
-          src={logoPng}
-          alt="Logo"
-          width={192}
-          height={192}
-          priority
-          className="w-32  md:w-48"
-        />
-      </Link>
+      <div>
+        <Link href="/">
+          <Image
+            src={logoPng}
+            alt="Logo"
+            width={192}
+            height={192}
+            priority
+            className="w-32  md:w-48"
+          />
+        </Link>
+        <div className="text-white">One place for all your code snippets</div>
+      </div>
       <div className="flex items-center space-x-3 text-white">
         <UserButton
           appearance={{ elements: { userButtonPopoverCard: "bg-main-900" } }}

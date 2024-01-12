@@ -38,8 +38,10 @@ export const FormCreateSnippet = withSkeleton(
     };
     const query = useQueryClient();
     useEffect(() => {
-      navigator.clipboard.writeText("console.log('Hello World !')");
-      nextTutorialStep();
+      if (localStorage.getItem("tuto-done") !== "true") {
+        navigator.clipboard.writeText("console.log('Hello World !')");
+        nextTutorialStep();
+      }
     }, []);
     const {
       register,

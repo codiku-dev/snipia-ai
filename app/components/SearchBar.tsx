@@ -23,7 +23,7 @@ export function SearchBar(p: { onChange: (query: string) => void }) {
     </div>
   );
   return (
-    <div className="bg-main-900 p-6 rounded-lg flex space-x-4">
+    <div className="bg-main-900 p-6 rounded-lg flex space-x-4 z-20">
       {input}
       <button
         id={TUTO_SELECTORS.ADD_FIRST_SNIPPET}

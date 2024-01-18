@@ -54,7 +54,6 @@ export const createSnippet = async (
         message: "User not signed in",
       };
     }
-    console.log("in");
     createSnippetSchema.parse(body);
 
     const snippetCreated = await db.snippet.create({

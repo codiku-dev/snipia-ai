@@ -4,7 +4,6 @@ import { ApiResponse } from "@/types/response";
 import { auth } from "@clerk/nextjs";
 import { Snippet, Technology } from "@prisma/client";
 import { createSnippetSchema, readAllSnippetsSchema } from "./schema";
-
 export const readAllSnippet = async (
   queryParams: typeof readAllSnippetsSchema._type
 ): Promise<ApiResponse<Snippet[]>> => {

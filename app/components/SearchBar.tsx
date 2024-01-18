@@ -8,7 +8,7 @@ import { useTour } from "@reactour/tour";
 
 export function SearchBar(p: { onChange: (query: string) => void }) {
   const router = useRouter();
-
+  const { setCurrentStep } = useTour();
   function handleOnChange(e: ChangeEvent<HTMLInputElement>) {
     p.onChange(e.currentTarget.value);
   }

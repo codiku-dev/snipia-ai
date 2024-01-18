@@ -17,7 +17,11 @@ import { WithFallback } from "@/types/fallback";
 import { withSkeleton } from "@/lib/suspense";
 import Skeleton from "react-loading-skeleton";
 import { useTour } from "@reactour/tour";
-import { TUTO_SELECTORS } from "../Tutorial/constant";
+import {
+  TUTORIAL_STEPS,
+  TUTO_SELECTORS,
+  getStepIndex,
+} from "../Tutorial/constant";
 
 const MAX_LENGTH_CONTENT = 5000;
 const formSchema = z.object({
@@ -32,13 +36,17 @@ type Form = typeof formSchema._type;
 export const FormCreateSnippet = withSkeleton(
   (p: WithFallback) => {
     const router = useRouter();
-    const { setCurrentStep } = useTour();
+    const { setCurrentStep, currentStep } = useTour();
     const nextTutorialStep = () => {
       setCurrentStep((step) => step + 1);
     };
     const query = useQueryClient();
     useEffect(() => {
-      if (localStorage.getItem("tutorial-done") !== "true") {
+      console.log(
+        "create ",
+        currentStep === getStepIndex(TUTO_SELECTORS.ADD_FIRST_SNIPPET)
+      );
+      if (currentStep === getStepIndex(TUTO_SELECTORS.ADD_FIRST_SNIPPET)) {
         navigator.clipboard.writeText("console.log('Hello World !')");
         nextTutorialStep();
       }

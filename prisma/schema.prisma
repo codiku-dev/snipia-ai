@@ -37,6 +37,7 @@ model Snippet {
   technology Technology
   language   Language
   userId     String
+  iv         String
 }
 
 enum Language {

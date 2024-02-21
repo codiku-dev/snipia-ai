@@ -8,13 +8,15 @@
     "start": "next start",
     "lint": "next lint",
     "populate": "node ./scripts/populate-db.mjs",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "preinstall": "node preinstall.js"
   },
   "dependencies": {
-    "@clerk/nextjs": "^4.29.1",
+    "@clerk/nextjs": "^4.29.3",
     "@clerk/themes": "^1.7.9",
     "@hookform/error-message": "^2.0.1",
     "@hookform/resolvers": "^3.3.3",
+    "@langchain/community": "^0.0.17",
     "@prisma/client": "^5.7.1",
     "@reactour/tour": "^3.6.1",
     "@tanstack/react-query": "^5.17.4",

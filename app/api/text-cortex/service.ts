@@ -16,7 +16,7 @@ export async function genCodeMetadata(
     .replace(/ +/g, " ")
     .replace(/"/g, "'");
 
-  const prompt = `An exemple of short good title can be Sort array by first letter or Simple http server or Modal component.Return also the technology(language or framework or library) of the code and a name in keba case.Your response should have the following format : title/technology/name  Example: Find max value in array/python/find-max-value or Generate random value/java/random-value  The technology should be in lowercase.Here is a list of the valid technologies, the technology has to be one of them :  python javascript java csharp php ruby swift kotlin c cpp bash css nextjs nodejs react rust typescript html. Return a response for this piece of code : ${codeWithoutLineBreaks}`;
+  const prompt = `An exemple of short good title can be Sort array by first letter or Simple http server or Modal component.Return also the technology(language or framework or library) of the code and a name in keba case.Your response should have the following format : title/technology/name  Example: Find max value in array/python/find-max-value or Generate random value/java/random-value  The technology should be in lowercase.Here is a list of the valid technologies, the technology can exclusively be one of :  python javascript java csharp php ruby swift kotlin c cpp bash css nextjs nodejs react rust typescript html. And nothing else. Return a response for this piece of code : ${codeWithoutLineBreaks}`;
 
   const options = {
     method: "POST",

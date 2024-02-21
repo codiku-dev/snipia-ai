@@ -5,7 +5,7 @@ export default async function SnippetLayout(p: { children: React.ReactNode }) {
   return (
     <div>
       <Header nav={<NavSuspense />} />
-      <div className="flex p-8 mt-2">
+      <div className="flex p-4 md:p-8 mt-2">
         <div className="hidden md:block">
           <NavSuspense />
         </div>

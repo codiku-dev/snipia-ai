@@ -2,7 +2,7 @@
 import { db } from "@/lib/db";
 import { ApiResponse } from "@/types/response";
 import { auth } from "@clerk/nextjs";
-import { Language, Snippet, Technology } from "@prisma/client";
+import { Snippet } from "@prisma/client";
 import { z } from "zod";
 import { updateSnippetSchema } from "./schema";
 

@@ -26,26 +26,27 @@ export const SnippetCard = withSkeleton(
       setCurrentStep(getStepIndex(TUTO_SELECTORS.USER_ID));
     };
 
-    const cardBody = (
-      <div className="flex flex-col justify-end h-full ">
-        <div
-          className="hover:bg-main-600  px-5 py-4 rounded-b-3xl"
-          onClick={copyCodeToClipboard}
-          id={p.index === 0 ? TUTO_SELECTORS.COMMAND : undefined}
-        >
-          <div className="font-semibold text-md text-main-100 uppercase">
-            {p.snippet.technology}
-          </div>
-          <div className="flex justify-between text-white">
-            <div className="text-sm line-clamp-3  pr-1 ">{p.snippet.title}</div>
-            <div className="w-5 h-5">
-              <RxCopy />
+    const body = (
+      <div className="h-full flex items-center md:items-end  ">
+        <div className="flex w-full  md:h-20">
+          <div className=" flex-grow pl-4 ">
+            <div className="font-semibold text-md text-main-100 uppercase">
+              {p.snippet.technology}
+            </div>
+            <div className="flex justify-between text-white">
+              <div className="text-sm line-clamp-3 pr-1">{p.snippet.title}</div>
             </div>
           </div>
         </div>
+        <div
+          onClick={copyCodeToClipboard}
+          id={p.index === 0 ? TUTO_SELECTORS.COMMAND : undefined}
+          className="top-0 h-full md:h-24 right-0 text-xs md:text-base w-24 absolute md:w-20  flex items-center justify-center  hover:bg-main-600 rounded-br-3xl rounded-tr-3xl  md:rounded-bl-3xl md:rounded-br-none text-white "
+        >
+          <RxCopy className="w-5 h-5" />
+        </div>
       </div>
     );
-
     const radialGradient = (
       <div
         style={{
@@ -57,14 +58,14 @@ export const SnippetCard = withSkeleton(
     return (
       <Link
         href={`/snippets/${p.snippet.id}`}
-        className={`hover:ring-[0.5px] hover:ring-[${progLngItem.color}] relative cursor-pointer shadow-xl bg-main-900 h-52 w-60 rounded-3xl transition transform hover:scale-105 `}
+        className={`mx-4 hover:ring-[0.5px] hover:ring-[${progLngItem.color}] relative cursor-pointer shadow-xl bg-main-900 h-20 w-full md:h-52 md:w-60 rounded-3xl transition transform hover:scale-105 `}
       >
         <div className="overflow-hidden relative rounded-tl-3xl  h-full w-full">
           {radialGradient}
-          {cardBody}
+          {body}
         </div>
         <Image
-          className="w-24 absolute -top-10 left-10"
+          className="w-8 md:w-24 absolute -top-3 md:-top-10 md:left-10"
           src={progLngItem.src}
           alt="Prog language image"
         />

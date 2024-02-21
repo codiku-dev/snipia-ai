@@ -1,14 +1,9 @@
-import { SnippetCard } from "@/components/SnippetCard";
-import { db } from "@/lib/db";
-import { Prisma } from "@prisma/client";
+import { Card } from "@/components/Card";
 
-export default async function Sandbox(p: {}) {
-  const snippets = await db.snippet.findMany();
+export default async function Sandbox() {
   return (
-    <div className="p-20 grid grid-cols-5 gap-y-20 gap-x-6">
-      {snippets.map((snippet) => (
-        <SnippetCard key={snippet.id} snippet={snippet} />
-      ))}
-    </div>
+    <>
+      <Card />
+    </>
   );
 }

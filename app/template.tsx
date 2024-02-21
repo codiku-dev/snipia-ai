@@ -1,11 +1,11 @@
 "use client";
-import { useTour } from "@reactour/tour";
-import { ReactNode, useEffect, useLayoutEffect } from "react";
-import { usePathname } from "next/navigation";
-import { TUTO_SELECTORS, getStepIndex } from "./components/Tutorial/constant";
-import { useQuery } from "@tanstack/react-query";
-import { readAllSnippet } from "./api/snippets/service";
 import { useAuth } from "@clerk/nextjs";
+import { useTour } from "@reactour/tour";
+import { useQuery } from "@tanstack/react-query";
+import { usePathname } from "next/navigation";
+import { ReactNode, useEffect } from "react";
+import { readAllSnippet } from "./api/snippets/service";
+import { TUTO_SELECTORS, getStepIndex } from "./components/Tutorial/constant";
 
 export default function TemplateMain(p: { children: ReactNode }) {
   const { userId } = useAuth();
@@ -28,10 +28,9 @@ export default function TemplateMain(p: { children: ReactNode }) {
 
   useEffect(
     function handleTutorial() {
-      console.log(currentStep);
       if (
         localStorage.getItem("tutorial-done") !== "true" &&
-        pathname === "/"
+        pathname === "/" && response?.data?.length! < 2
       ) {
         if (currentStep == getStepIndex(TUTO_SELECTORS.ADD_FIRST_SNIPPET)) {
           setIsOpen(true);

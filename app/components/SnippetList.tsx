@@ -6,7 +6,7 @@ import { Snippet } from "@prisma/client";
 export const SnippetList = withSkeleton(
   (p: { snippets: Snippet[] } & WithFallback) => {
     return (
-      <div className="p-20 flex flex-wrap gap-y-20 gap-x-6">
+      <div className="px-1 py-4 md:p-20 flex flex-wrap gap-y-6 md:gap-y-20 gap-x-6">
         {p.snippets.map((snippet, i) => (
           <SnippetCard
             index={i}

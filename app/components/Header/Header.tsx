@@ -34,7 +34,9 @@ export function Header(p: { nav: React.ReactNode }) {
             className="w-32  md:w-48"
           />
         </Link>
-        <div className="text-white">One place for all your code snippets</div>
+        <div className="text-white hidden md:block">
+          One place for all your code snippets
+        </div>
       </div>
       <div className="flex items-center space-x-3 text-white">
         <UserButton
